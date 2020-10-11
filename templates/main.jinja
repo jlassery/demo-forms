@@ -7,13 +7,21 @@
         <div class="col">
           <div class="form-group">
             <label for="nomeCliente">Nome Cliente</label>
-            <input id="nomeCliente" name="nomeCliente" type="text" class="form-control" placeholder="Insira o nome do cliente">
+            <select id="nomeCliente" name="nomeCliente" class="form-control selectpicker" data-live-search="true" placeholder="Insira o nome do cliente">
+              {% for cliente in listaClientes %}
+              <option name="{{ cliente.nome }}">{{ cliente.nome }}</option>
+              {% endfor %}-->
+            </select>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="nomeSolicitante">Nome Solicitante</label>
-            <input id="nomeSolicitante" name="nomeSolicitante" type="text" class="form-control" placeholder="Insira o nome do solicitante">
+            <select id="nomeSolicitante" name="nomeSolicitante" class="form-control selectpicker" data-live-search="true" placeholder="Insira o nome do solicitante">
+              {% for solicitante in listaSolicitantes %}
+              <option name="{{ solicitante.nome }}">{{ solicitante.nome }}</option>
+              {% endfor %}-->
+            </select>
           </div>
         </div>
       </div>

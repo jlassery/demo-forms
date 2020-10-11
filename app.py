@@ -15,12 +15,15 @@ def inicio():
     return render_template('main.jinja', listaClientes=listaClientes, listaSolicitantes=listaSolicitantes)
     #return render_template('main.jinja')
 @app.route('/', methods=['POST'])
+
+#Coloca dados do forms em formato json
 def gravar():
     if database_enabled:
         form = json.dumps(request.form)
-        db.forms.insert_one(form)
+        db.forms.insert_one(form) #metodo maluco do pymongo
     return render_template('main.jinja', mensagem="Dados gravados na base com sucesso!")
 
+#Puxar nome de clientes do BD em formato de searchlist. Nomes foram injetados no banco por meio da interface Web do Mongo
 def getNomesClientes():
     if database_enabled:
         try:
@@ -29,7 +32,8 @@ def getNomesClientes():
             return None
     else:
         return None
-
+    
+#Puxar nome de solicitantes do BD em formato de searchlist. Nomes foram injetados no banco por meio da interface Web do Mongo
 def getNomesSolicitantes():
     if database_enabled:
         try:
@@ -42,7 +46,8 @@ def getNomesSolicitantes():
 
 def sigterm_handler(_signo, _stack_frame):
     sys.exit(0)
-
+    
+#Conexão com o BD
 if __name__ == '__main__':
     try:
         dbname = environ['database-name']

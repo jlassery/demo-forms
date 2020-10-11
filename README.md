@@ -77,4 +77,3 @@ $ oc start-build web-pipeline
 ```
 $ oc delete project demo-openshift
 ```
-.

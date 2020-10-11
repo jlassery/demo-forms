@@ -1,40 +1,244 @@
 {% extends "base.jinja" %}
 {% block content %}
-    <h1>Quadro de Avisos v3</h1>
-    {% if motd is iterable %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Mensagens</h3>
-            </div>
-            <div class="panel-body">
-                {{ motd }}
-            </div>
+    <h1 class="text-center">Formulário</h1>
+    <form>
+      <h4 class="p-3 mb-2 bg-success text-white">Identificação</h4>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="nomeCliente">Nome Cliente</label>
+            <input id="nomeCliente" name="nomeCliente" type="text" class="form-control" placeholder="Insira o nome do cliente">
+          </div>
         </div>
-    {% endif %}
-    <form action="/" method="post">
-        <div class="input-group">
-            <input type="text" name="text" class="form-control" placeholder="Seu recado...">
-            <span class="input-group-btn">
-                <button class="btn btn-secondary">Adicionar!</button>
-            </span>
+        <div class="col">
+          <div class="form-group">
+            <label for="nomeSolicitante">Nome Solicitante</label>
+            <input id="nomeSolicitante" name="nomeSolicitante" type="text" class="form-control" placeholder="Insira o nome do solicitante">
+          </div>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="peso">Peso Carga + Tara CNTR</label>
+            <select class="form-control" id="peso" name="peso">
+              <option value=""></option>
+              <option value="<=27 Toneladas(L)"><=27 Toneladas(L)</option>
+              <option value=">27 Toneladas(LS)">>27 Toneladas(LS)</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="valor">Valor Aprox. mercadoria</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">R$</span>
+              </div>
+              <input type="text" id="valor" name="valor" class="form-control" placeholder="Insira o valor aproximado"  aria-describedby="basic-addon1">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="tipoMercadoria">Tipo de mercadoria</label>
+            <select class="form-control" id="tipoMercadoria" name="tipoMercadoria" onchange="javascript:exibeCampo(this.value);">
+              <option value=""></option>
+              <option value="Alimentos">Alimentos</option>
+              <option value="Eletroeletrônicos">Eletroeletrônicos</option>
+              <option value="Têxtil">Têxtil</option>
+              <option value="Produtos Químicos">Produtos Químicos</option>
+              <option value="Papel e celulose">Papel e celulose</option>
+              <option value="Petroquímicos">Petroquímicos</option>
+              <option value="Higiene e limpeza">Higiene e limpeza</option>
+              <option value="Outros">Outros(especificar)</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group" id="divOutros" hidden>
+            <label for="outros">Outros</label>
+            <input id="outros" name="outros" type="text" class="form-control" value="">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="detalhamento">Detalhamento</label>
+            <input id="detalhamento" name="detalhamento" type="text" class="form-control" placeholder="Insira o detalhamento" maxlength="200">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Certificações</label>
+            <br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="imo" value="" name="imo">
+              <label class="form-check-label" for="imo">IMO</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="sassmaq" value="" name="sassmaq">
+              <label class="form-check-label" for="sassmaq">SASSMAQ</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="anvisa" value="" name="anvisa">
+              <label class="form-check-label" for="anvisa">ANVISA(AFE)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="p-3 mb-2 bg-success text-white">Transporte Rodoviário</h4>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="tipoOperacao">Tipo de Operação</label>
+            <select class="form-control" id="tipoOperacao" name="tipoOperacao">
+              <option value=""></option>
+              <option value="Operação padrão">Operação padrão</option>
+              <option value="Operação carga seca">Operação carga seca</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Aceita Ferrovia</label>
+            <br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="ferrovia" id="ferrovia1" value="Sim">
+              <label class="form-check-label" for="ferrovia1">Sim</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="ferrovia" id="ferrovia2" value="Não">
+              <label class="form-check-label" for="ferrovia2">Não</label>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="terminalFerrovia">Terminal de Ferrovia</label>
+            <select class="form-control" id="terminalFerrovia" name="terminalFerrovia">
+              <option value=""></option>
+              <option value="TMN - Teresina">TMN - Teresina</option>
+              <option value="TMN - São Luis">TMN - São Luis</option>
+              <option value="Brado - Cambe">Brado - Cambe</option>
+              <option value="Brado - Paranagua">Brado - Paranagua</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="infoAdicionais">Informações Adicionais</label>
+            <input id="infoAdicionais" name="infoAdicionais" type="text" class="form-control" placeholder="Insira informações adicionais" maxlength="200">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="tipo">Tipo</label>
+            <select class="form-control" id="tipo" name="tipo">
+              <option value=""></option>
+              <option value="Coleta">Coleta</option>
+              <option value="Entrega">Entrega</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="veiculo">Veículo</label>
+            <select class="form-control" id="veiculo" name="veiculo">
+              <option value=""></option>
+              <option value="Porta Container">Porta Container</option>
+              <option value="Carreta Aberta">Carreta Aberta</option>
+              <option value="Carreta Sider">Carreta Sider</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Estrutura p/ Bitrem</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="estruturaBitrem" id="estruturaBitrem1" value="Sim">
+              <label class="form-check-label" for="estruturaBitrem1">Sim</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="estruturaBitrem" id="estruturaBitrem2" value="Não">
+              <label class="form-check-label" for="estruturaBitrem2">Não</label>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="portoOrigem">Porto de Origem</label>
+            <select class="form-control" id="portoOrigem" name="portoOrigem">
+              <option value=""></option>
+              <option value="Porto 1">Porto 1</option>
+              <option value="Porto 2">Porto 2</option>
+              <option value="Porto 3">Porto 3</option>
+              <option value="Porto 4">Porto 4</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="uf">UF</label>
+            <select class="form-control" id="uf" name="uf">
+              <option value=""></option>
+              <option value="RJ">RJ</option>
+              <option value="SP">SP</option>
+              <option value="MG">MG</option>
+              <option value="ES">ES</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="cidade">Cidade</label>
+            <select class="form-control" id="cidade" name="cidade">
+              <option value=""></option>
+              <option value="Rio de Janeiro">Rio de Janeiro</option>
+              <option value="São Paulo">São Paulo</option>
+              <option value="Belo Horizonte">Belo Horizonte</option>
+              <option value="Vitória">Vitória</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="volOpMes">Vol. Op/Mês</label>
+            <input id="volOpMes" name="volOpMes" type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Envio Numerário?</label>
+        <br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="envioNumerario" id="resp1" value="Sim">
+          <label class="form-check-label" for="resp1">Sim</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="envioNumerario" id="resp2" value="Não">
+          <label class="form-check-label" for="resp2">Não</label>
+        </div>
+      </div>
     </form>
-    <h4>Recados Antigos:</h4>
-    {% if message_list is iterable %}
-        {% if message_list|length > 0 %}
-            <ul class="list-group">
-            {% for message in message_list %}
-                <li class="list-group-item">{{ message.text }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <div class="alert alert-info">
-                Não existem mensagens!
-            </div>
-        {% endif %}    
-    {% else %}
-        <div class="alert alert-danger">
-            <strong>Ops!</strong> Não temos banco de dados?
-        </div>
-    {% endif %}
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-danger">Limpar</button>
+        <button type="button" class="btn btn-primary">Salvar</button>
+        <button type="button" class="btn btn-success">Enviar</button>
+      </div>
+    </div>
+
+
+
 {% endblock %}

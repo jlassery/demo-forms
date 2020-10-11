@@ -4,38 +4,41 @@ from os import environ
 import sys
 import signal
 from pymongo import MongoClient
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, json
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
-def hello_world():
-    motd=get_motd()
-    message_list=get_messages()
-    return render_template('main.jinja', motd=motd, message_list=message_list)
+def inicio():
+    #nomesClientes=getNomesCLientes()
+    #nomesSolicitantes=getNomesSolicitantes()
+    return render_template('main.jinja')
 
 @app.route('/', methods=['POST'])
-def save_message():
+def gravar():
     if database_enabled:
-        message = request.form['text']
-        db.messages.insert_one({"text":message})
+        form = json.dumps(request.form)
+        db.forms.insert_one(form)
     return redirect('/')
 
-def get_messages():
+def getNomesClientes():
     if database_enabled:
         try:
-            return [message for message in db.messages.find()]
+            return [cliente for cliente in db.clientes.find()]
         except:
             return None
     else:
         return None
 
-def get_motd():
-    try:
-        message = open('/webconfig/motd','r').read()
-        return message
-    except:
+def getNomesSolicitantes():
+    if database_enabled:
+        try:
+            return [solicitante for solicitante in db.solicitantes.find()]
+        except:
+            return None
+    else:
         return None
+
 
 def sigterm_handler(_signo, _stack_frame):
     sys.exit(0)

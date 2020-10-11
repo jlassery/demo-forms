@@ -48,8 +48,10 @@ if __name__ == '__main__':
         client = MongoClient('mongodb://%s:%s@mongodb/%s' % (dbuser,dbpass,dbname))
         db = client[dbname]
         database_enabled = True
+        print("Conexão OK!")
     except:
         database_enabled = False
+        print("Conexão NOK!")
 
     signal.signal(signal.SIGTERM, sigterm_handler)
     try:

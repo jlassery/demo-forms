@@ -1,7 +1,7 @@
 {% extends "base.jinja" %}
 {% block content %}
     <h1 class="text-center">Formulário</h1>
-    <form>
+    <form id="formulario" action="/" method="post">
       <h4 class="p-3 mb-2 bg-success text-white">Identificação</h4>
       <div class="row">
         <div class="col">
@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="form-group" id="divOutros" hidden>
+          <div class="form-group" id="divOutros" style="display:none;">
             <label for="outros">Outros</label>
             <input id="outros" name="outros" type="text" class="form-control" value="">
           </div>
@@ -100,7 +100,7 @@
         <div class="col">
           <div class="form-group">
             <label for="tipoOperacao">Tipo de Operação</label>
-            <select class="form-control" id="tipoOperacao" name="tipoOperacao">
+            <select class="form-control" id="tipoOperacao" name="tipoOperacao" onchange="javascript:atualizaOpcoes(this.value)">
               <option value=""></option>
               <option value="Operação padrão">Operação padrão</option>
               <option value="Operação carga seca">Operação carga seca</option>
@@ -156,9 +156,9 @@
             <label for="veiculo">Veículo</label>
             <select class="form-control" id="veiculo" name="veiculo">
               <option value=""></option>
-              <option value="Porta Container">Porta Container</option>
-              <option value="Carreta Aberta">Carreta Aberta</option>
-              <option value="Carreta Sider">Carreta Sider</option>
+              <option id="op1" value="Porta Container">Porta Container</option>
+              <option id="op2" value="Carreta Aberta">Carreta Aberta</option>
+              <option id="op3" value="Carreta Sider">Carreta Sider</option>
             </select>
           </div>
         </div>
@@ -230,14 +230,15 @@
           <label class="form-check-label" for="resp2">Não</label>
         </div>
       </div>
-    </form>
-    <div class="row">
-      <div class="col">
-        <button type="button" class="btn btn-danger">Limpar</button>
-        <button type="button" class="btn btn-primary">Salvar</button>
-        <button type="button" class="btn btn-success">Enviar</button>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-danger" onclick="javascript:limpaCampos()">Limpar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+          <!--<button type="button" class="btn btn-success">Enviar</button>-->
+        </div>
       </div>
-    </div>
+    </form>
+
 
 
 

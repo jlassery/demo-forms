@@ -1,5 +1,11 @@
 {% extends "base.jinja" %}
 {% block content %}
+    {% if mensagem %}
+    <div class="alert alert-success" role="alert">
+      {{ mensagem }}
+    </div>
+    {% endif %}
+
     <h1 class="text-center">Formulário</h1>
     <form id="formulario" action="/" method="post">
       <h4 class="p-3 mb-2 bg-success text-white">Identificação</h4>
@@ -8,10 +14,9 @@
           <div class="form-group">
             <label for="nomeCliente">Nome Cliente</label>
             <select id="nomeCliente" name="nomeCliente" class="form-control selectpicker" data-live-search="true" placeholder="Insira o nome do cliente">
-              <option value=""></option>
               {% for cliente in listaClientes %}
               <option value="{{ cliente.nome }}">{{ cliente.nome }}</option>
-              {% endfor %}
+              {% endfor %}-->
             </select>
           </div>
         </div>
@@ -19,10 +24,9 @@
           <div class="form-group">
             <label for="nomeSolicitante">Nome Solicitante</label>
             <select id="nomeSolicitante" name="nomeSolicitante" class="form-control selectpicker" data-live-search="true" placeholder="Insira o nome do solicitante">
-              <option value=""></option>
               {% for solicitante in listaSolicitantes %}
               <option value="{{ solicitante.nome }}">{{ solicitante.nome }}</option>
-              {% endfor %}
+              {% endfor %}-->
             </select>
           </div>
         </div>

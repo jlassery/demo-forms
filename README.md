@@ -2,12 +2,15 @@
  
 Este repositório hospeda uma aplicação Python em forma de formulário, integrada com Banco de dados MongoDB, ambos para serem usado nos Openshift. 
 
+-Utilizado:
 * Python3.6
 * Flask - Framework Web
 * PyMongo - MongoDB Interface
 * ContainerImage MongoExpress - Interface Web MongoDB (https://hub.docker.com/_/mongo-express)
 * Atom como plataforma de código e integração com git
+* Openshift 4.4
 * Inspirado na app Python desenvolvida por Davi Garcia
+
 
 ## Capacidades
 

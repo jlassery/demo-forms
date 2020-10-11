@@ -10,14 +10,14 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def inicio():
-    #nomesClientes=getNomesCLientes()
-    #nomesSolicitantes=getNomesSolicitantes()
-    return render_template('main.jinja')
-
+    llistaClientes=getNomesClientes()
+    listaSolicitantes=getNomesSolicitantes()
+    return render_template('main.jinja', listaClientes=listaClientes, listaSolicitantes=listaSolicitantes)
+    #return render_template('main.jinja')
 @app.route('/', methods=['POST'])
 def gravar():
     if database_enabled:
-        form = request.get_json();
+        form = json.dumps(request.form)
         db.forms.insert_one(form)
     return redirect('/')
 

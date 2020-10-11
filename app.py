@@ -17,7 +17,7 @@ def inicio():
 @app.route('/', methods=['POST'])
 def gravar():
     if database_enabled:
-        form = json.dumps(request.form, default=json_util.default)
+        form = request.json(request.form)
         db.forms.insert_one(form)
     return redirect('/')
 

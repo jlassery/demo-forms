@@ -8,6 +8,7 @@
           <div class="form-group">
             <label for="nomeCliente">Nome Cliente</label>
             <select id="nomeCliente" name="nomeCliente" class="form-control selectpicker" data-live-search="true" placeholder="Insira o nome do cliente">
+              <option value=""></option>
               {% for cliente in listaClientes %}
               <option value="{{ cliente.nome }}">{{ cliente.nome }}</option>
               {% endfor %}
@@ -18,6 +19,7 @@
           <div class="form-group">
             <label for="nomeSolicitante">Nome Solicitante</label>
             <select id="nomeSolicitante" name="nomeSolicitante" class="form-control selectpicker" data-live-search="true" placeholder="Insira o nome do solicitante">
+              <option value=""></option>
               {% for solicitante in listaSolicitantes %}
               <option value="{{ solicitante.nome }}">{{ solicitante.nome }}</option>
               {% endfor %}

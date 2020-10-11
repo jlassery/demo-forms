@@ -17,9 +17,9 @@ def inicio():
 @app.route('/', methods=['POST'])
 def gravar():
     if database_enabled:
-        form = request.form.to_dict()
+        form = json.dumps(request.form)
         db.forms.insert_one(form)
-    return redirect('/')
+    return render_template('main.jinja', mensagem="Dados gravados na base com sucesso!")
 
 def getNomesClientes():
     if database_enabled:
